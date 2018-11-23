@@ -44,7 +44,8 @@ module.exports = {
 
   getGridState(props: { rowHeight: number; rowsCount: number; minHeight: number }): ViewportScrollState {
     let totalNumberColumns = ColumnUtils.getSize(props.columnMetrics.columns);
-    let canvasHeight = props.minHeight - props.rowOffsetHeight;
+    let rowOffsetTop = props.rowOffsetTop || 0;
+    let canvasHeight = props.minHeight - props.rowOffsetTop;
     let renderedRowsCount = ceil((props.minHeight - props.rowHeight) / props.rowHeight);
     let totalRowCount = min(renderedRowsCount * 4, props.rowsCount);
     return {
@@ -171,6 +172,7 @@ module.exports = {
   componentWillReceiveProps(nextProps: { rowHeight: number; rowsCount: number, rowOffsetHeight: number }) {
     if (this.props.rowHeight !== nextProps.rowHeight ||
       this.props.minHeight !== nextProps.minHeight ||
+      this.props.width !== nextProps.width ||
       ColumnUtils.getSize(this.props.columnMetrics.columns) !== ColumnUtils.getSize(nextProps.columnMetrics.columns)) {
       this.setState(this.getGridState(nextProps));
     } else if (this.props.rowsCount !== nextProps.rowsCount) {
@@ -179,19 +181,22 @@ module.exports = {
         this.state.scrollLeft,
         this.state.height,
         nextProps.rowHeight,
-        nextProps.rowsCount
+        nextProps.rowsCount,
+        nextProps.totalWidth
       );
+
       // Added to fix the hiding of the bottom scrollbar when showing the filters.
-    } else if (this.props.rowOffsetHeight !== nextProps.rowOffsetHeight) {
+    } else if (this.props.rowOffsetHTop !== nextProps.rowOffsetTop) {
       // The value of height can be positive or negative and will be added to the current height to cater for changes in the header height (due to the filer)
-      let height = this.props.rowOffsetHeight - nextProps.rowOffsetHeight;
+      let height = this.props.rowOffsetTop - nextProps.rowOffsetTop;
 
       this.updateScroll(
         this.state.scrollTop,
         this.state.scrollLeft,
         this.state.height + height,
         nextProps.rowHeight,
-        nextProps.rowsCount
+        nextProps.rowsCount,
+        nextProps.totalWidth
       );
     }
   },

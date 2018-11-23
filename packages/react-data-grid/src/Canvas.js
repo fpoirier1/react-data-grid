@@ -63,7 +63,8 @@ const Canvas = createReactClass({
       })
     ]),
     rowGroupRenderer: PropTypes.func,
-    isScrolling: PropTypes.bool
+    isScrolling: PropTypes.bool,
+    offsetBottom: PropTypes.number,
   },
 
   getDefaultProps() {
@@ -311,7 +312,8 @@ const Canvas = createReactClass({
       overflowX: 'auto',
       overflowY: 'scroll',
       width: this.props.totalWidth,
-      height: this.props.height
+      height: this.props.height,
+      paddingBottom: this.props.offsetBottom
     };
 
     return (

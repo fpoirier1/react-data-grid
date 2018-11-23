@@ -10,7 +10,8 @@ const Viewport = createReactClass({
   mixins: [ViewportScroll],
 
   propTypes: {
-    rowOffsetHeight: PropTypes.number.isRequired,
+    rowOffsetTop: PropTypes.number.isRequired,
+    rowOffsetBottom: PropTypes.number,
     totalWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     columnMetrics: PropTypes.object.isRequired,
     rowGetter: PropTypes.oneOfType([PropTypes.array, PropTypes.func]).isRequired,
@@ -73,7 +74,8 @@ const Viewport = createReactClass({
       right: 0,
       overflow: 'hidden',
       position: 'absolute',
-      top: this.props.rowOffsetHeight
+      top: this.props.rowOffsetTop,
+      bottom: 0
     };
     return (
       <div
@@ -108,6 +110,7 @@ const Viewport = createReactClass({
           rowSelection={this.props.rowSelection}
           getSubRowDetails={this.props.getSubRowDetails}
           rowGroupRenderer={this.props.rowGroupRenderer}
+          offsetBottom={this.props.rowOffsetBottom}
           isScrolling={this.state.isScrolling || false}
         />
       </div>

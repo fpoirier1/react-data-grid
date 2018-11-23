@@ -2,6 +2,7 @@ const React                = require('react');
 import PropTypes from 'prop-types';
 const createReactClass = require('create-react-class');
 const Header               = require('./Header');
+const Footer               = require('./Footer');
 const Viewport             = require('./Viewport');
 const GridScrollMixin      = require('./GridScrollMixin');
 const DOMMetrics           = require('./DOMMetrics');
@@ -18,6 +19,7 @@ const Grid = createReactClass({
     minHeight: PropTypes.number,
     totalWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     headerRows: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+    footerRows: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
     rowHeight: PropTypes.number,
     rowRenderer: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     emptyRowsView: PropTypes.func,
@@ -41,7 +43,8 @@ const Grid = createReactClass({
     onRows: PropTypes.func,
     sortColumn: PropTypes.string,
     sortDirection: PropTypes.oneOf(['ASC', 'DESC', 'NONE']),
-    rowOffsetHeight: PropTypes.number.isRequired,
+    rowOffsetTop: PropTypes.number.isRequired,
+    rowOffsetBottom: PropTypes.number.isRequired,
     onViewportKeydown: PropTypes.func.isRequired,
     onViewportKeyup: PropTypes.func,
     onViewportDragStart: PropTypes.func.isRequired,
@@ -79,12 +82,15 @@ const Grid = createReactClass({
       overflow: 'hidden',
       outline: 0,
       position: 'relative',
-      minHeight: this.props.minHeight
+      minHeight: this.props.minHeight,
+      height: this.props.minHeight
     };
   },
 
   render(): ?ReactElement {
     let headerRows = this.props.headerRows || [{ref: (node) => this.row = node}];
+    let footerRows = this.props.footerRows || [{ref: (node) => this.row = node}];
+
     let EmptyRowsView = this.props.emptyRowsView;
 
     return (
@@ -130,7 +136,8 @@ const Grid = createReactClass({
                   onScroll={this.onScroll}
                   onRows={this.props.onRows}
                   cellMetaData={this.props.cellMetaData}
-                  rowOffsetHeight={this.props.rowOffsetHeight || this.props.rowHeight * headerRows.length}
+                  rowOffsetTop={this.props.rowOffsetTop || this.props.rowHeight * headerRows.length}
+                  rowOffsetBottom={this.props.rowOffsetBottom}
                   minHeight={this.props.minHeight}
                   rowScrollTimeout={this.props.rowScrollTimeout}
                   contextMenu={this.props.contextMenu}
@@ -144,6 +151,25 @@ const Grid = createReactClass({
             <div ref={(node) => { this.emptyView = node; } } className="react-grid-Empty">
                 <EmptyRowsView />
             </div>
+        }
+
+        { this.props.useFooter &&
+          <Footer
+            ref={(input) => { this.footer = input; } }
+            columnMetrics={this.props.columnMetrics}
+            onColumnResize={this.props.onColumnResize}
+            height={this.props.rowHeight}
+            totalWidth={this.props.totalWidth}
+            footerRows={footerRows}
+            // sortColumn={this.props.sortColumn}
+            // sortDirection={this.props.sortDirection}
+            // draggableHeaderCell={this.props.draggableHeaderCell}
+            // onSort={this.props.onSort}
+            // onHeaderDrop={this.props.onHeaderDrop}
+            // onScroll={this.onHeaderScroll}
+            // getValidFilterValues={this.props.getValidFilterValues}
+            cellMetaData={this.props.cellMetaData}
+            />
         }
       </div>
     );

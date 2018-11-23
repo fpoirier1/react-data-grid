@@ -1,17 +1,19 @@
-.react-grid-Header {
+.react-grid-Footer {
   box-shadow: 0px 0px 4px 0px #dddddd;
   background: #f9f9f9;
 }
-.react-grid-Header--resizing {
+/*
+.react-grid-Footer--resizing {
   cursor: ew-resize;
 }
-.react-grid-HeaderRow {
+*/
+.react-grid-FooterRow {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
-.react-grid-HeaderCell {
+.react-grid-FooterCell {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -23,7 +25,7 @@
   border-bottom: 1px solid #dddddd;
   box-sizing: border-box;
 }
-.react-grid-HeaderCell__value {
+.react-grid-FooterCell__value {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -31,99 +33,102 @@
   top: 50%;
   transform: translateY(-50%);
 }
-.react-grid-HeaderCell__resizeHandle:hover {
+/*
+.react-grid-FooterCell__resizeHandle:hover {
   cursor: ew-resize;
   background: #dddddd;
 }
-.react-grid-HeaderCell--locked:last-of-type {
+*/
+.react-grid-FooterCell--locked:last-of-type {
   box-shadow: none;
 }
-.react-grid-HeaderCell--resizing .react-grid-HeaderCell__resizeHandle {
+/*
+.react-grid-FooterCell--resizing .react-grid-FooterCell__resizeHandle {
   background: #dddddd;
 }
-.react-grid-HeaderCell__draggable {
+.react-grid-FooterCell__draggable {
     cursor: col-resize
 }
-.rdg-can-drop > .react-grid-HeaderCell {
+.rdg-can-drop > .react-grid-FooterCell {
   background: #ececec;
 }
-
-.react-grid-HeaderCell .Select {
-    max-height: 30px;
+*/
+.react-grid-FooterCell .Select {
+    max- ight: 30px;
     font-size: 12px;
     font-weight: normal;
 }
 
-.react-grid-HeaderCell .Select-control {
+.react-grid-FooterCell .Select-control {
     max-height: 30px;
     border: 1px solid #cccccc;
     color: #555;
     border-radius: 3px;
 }
 
-.react-grid-HeaderCell .is-focused:not(.is-open) > .Select-control {
+.react-grid-FooterCell .is-focused:not(.is-open) > .Select-control {
     border-color: #66afe9;
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 }
 
-.react-grid-HeaderCell .Select-control .Select-placeholder {
+.react-grid-FooterCell .Select-control .Select-placeholder {
     line-height: 20px;
     color: #999;
     padding: 4px;
 }
 
-.react-grid-HeaderCell .Select-control .Select-input {
+.react-grid-FooterCell .Select-control .Select-input {
     max-height: 28px;
     padding: 4px;
     margin-left: 0px
 }
 
-.react-grid-HeaderCell .Select-control .Select-input input {
+.react-grid-FooterCell .Select-control .Select-input input {
     padding: 0px;
     height: 100%;
 }
 
-.react-grid-HeaderCell .Select-control .Select-arrow-zone .Select-arrow {
+.react-grid-FooterCell .Select-control .Select-arrow-zone .Select-arrow {
     border-color: gray transparent transparent;
     border-width: 4px 4px 2.5px;
 }
 
 
-.react-grid-HeaderCell .Select-control .Select-value {
+.react-grid-FooterCell .Select-control .Select-value {
     padding: 4px;
     line-height: 20px !important;   
 }
 
-.react-grid-HeaderCell .Select--multi .Select-control .Select-value {
+.react-grid-FooterCell .Select--multi .Select-control .Select-value {
     padding: 0px;
     line-height: 16px !important;
     max-height: 20px;
 }
 
-.react-grid-HeaderCell .Select--multi .Select-control .Select-value .Select-value-icon {
+.react-grid-FooterCell .Select--multi .Select-control .Select-value .Select-value-icon {
     max-height: 20px;
 }
 
-.react-grid-HeaderCell .Select--multi .Select-control .Select-value .Select-value-label {
+.react-grid-FooterCell .Select--multi .Select-control .Select-value .Select-value-label {
     max-height: 20px;
 }
 
-.react-grid-HeaderCell .Select-control .Select-value .Select-value-label {
+.react-grid-FooterCell .Select-control .Select-value .Select-value-label {
     color: #555555 !important;
 }
 
-.react-grid-HeaderCell .Select-menu-outer .Select-option {
+.react-grid-FooterCell .Select-menu-outer .Select-option {
     padding: 4px;
     line-height: 20px;
 }
 
-.react-grid-HeaderCell .Select-menu-outer .Select-menu .Select-option.is-selected {
+.react-grid-FooterCell .Select-menu-outer .Select-menu .Select-option.is-selected {
     color: #555555;   
 }
 
-.react-grid-HeaderCell .Select-menu-outer .Select-menu .Select-option.is-focused {
+.react-grid-FooterCell .Select-menu-outer .Select-menu .Select-option.is-focused {
     color: #555555;   
 }
 

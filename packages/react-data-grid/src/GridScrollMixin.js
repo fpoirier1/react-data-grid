@@ -31,6 +31,7 @@ module.exports = {
     if (this._scrollLeft !== scrollLeft) {
       this._scrollLeft = scrollLeft;
       this.header.setScrollLeft(scrollLeft);
+      this.footer && this.footer.setScrollLeft(scrollLeft);
       let canvas = ReactDOM.findDOMNode(this.viewport.canvas);
       canvas.scrollLeft = scrollLeft;
       this.viewport.canvas.setScrollLeft(scrollLeft);
@@ -40,6 +41,7 @@ module.exports = {
   _onScroll() {
     if (this._scrollLeft !== undefined) {
       this.header.setScrollLeft(this._scrollLeft);
+      this.footer && this.footer.setScrollLeft(this._scrollLeft);
       if (this.viewport) {
         this.viewport.setScrollLeft(this._scrollLeft);
       }

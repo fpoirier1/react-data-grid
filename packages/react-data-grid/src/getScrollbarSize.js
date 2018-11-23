@@ -25,7 +25,7 @@ function getScrollbarSize() {
     size = outerWidth - innerWidth;
   }
 
-  return size;
+  return size >= 0 ? size : 0;
 }
 
 module.exports = getScrollbarSize;

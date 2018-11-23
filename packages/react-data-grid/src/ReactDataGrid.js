@@ -57,6 +57,7 @@ const ReactDataGrid = createReactClass({
     rowHeight: PropTypes.number.isRequired,
     headerRowHeight: PropTypes.number,
     headerFiltersHeight: PropTypes.number,
+    footererRowHeight: PropTypes.number,
     minHeight: PropTypes.number.isRequired,
     minWidth: PropTypes.number,
     enableRowSelect: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -117,7 +118,8 @@ const ReactDataGrid = createReactClass({
     overScan: PropTypes.object,
     onDeleteSubRow: PropTypes.func,
     onAddSubRow: PropTypes.func,
-    enableCellAutoFocus: PropTypes.bool
+    enableCellAutoFocus: PropTypes.bool,
+    useFooter: PropTypes.bool
   },
 
   getDefaultProps(): {enableCellSelect: boolean} {
@@ -137,7 +139,8 @@ const ReactDataGrid = createReactClass({
         rowsStart: 5,
         rowsEnd: 5
       },
-      enableCellAutoFocus: true
+      enableCellAutoFocus: true,
+      useFooter: false
     };
   },
 
@@ -630,10 +633,16 @@ const ReactDataGrid = createReactClass({
     this.setState({scrollOffset: scrollOffset});
   },
 
-  getRowOffsetHeight(): number {
-    let offsetHeight = 0;
-    this.getHeaderRows().forEach((row) => offsetHeight += parseFloat(row.height, 10) );
-    return offsetHeight;
+  getRowOffsetTop(): number {
+    let offset = 0;
+    this.getHeaderRows().forEach((row) => offset += parseFloat(row.height, 10) );
+    return offset;
+  },
+
+  getRowOffsetBottom(): number {
+    let offset = 0;
+    this.getFooterRows().forEach((row) => offset += parseFloat(row.height, 10) );
+    return offset;
   },
 
   getHeaderRows(): Array<{ref: Function; height: number;}> {
@@ -647,6 +656,14 @@ const ReactDataGrid = createReactClass({
         rowType: 'filter'
       });
     }
+    return rows;
+  },
+
+  getFooterRows(): Array<{ref: Function; height: number;}> {
+    if(!this.props.useFooter)
+      return [];
+
+    let rows = [{ ref: (node) => this.row = node, height: this.props.footerRowHeight || this.props.rowHeight, rowType: 'footer' }];
     return rows;
   },
 
@@ -959,6 +976,7 @@ const ReactDataGrid = createReactClass({
             {...this.props}
             rowKey={this.props.rowKey}
             headerRows={this.getHeaderRows()}
+            footerRows={this.getFooterRows()}
             columnMetrics={this.state.columnMetrics}
             rowGetter={this.props.rowGetter}
             rowsCount={this.props.rowsCount}
@@ -967,7 +985,8 @@ const ReactDataGrid = createReactClass({
             selectedRows={this.getSelectedRows()}
             rowSelection={this.getRowSelectionProps()}
             expandedRows={this.state.expandedRows}
-            rowOffsetHeight={this.getRowOffsetHeight()}
+            rowOffsetTop={this.getRowOffsetTop()}
+            rowOffsetBottom={this.getRowOffsetBottom()}
             sortColumn={this.state.sortColumn}
             sortDirection={this.state.sortDirection}
             onSort={this.handleSort}
